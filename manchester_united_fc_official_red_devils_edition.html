@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manchester United FC | The Red Devils - โรงละครแห่งความฝัน</title>
+    
+    <!-- Google Fonts: Prompt & Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Prompt:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        display: ['Kanit', 'sans-serif'],
+                    },
+                    colors: {
+                        muRed: '#DA291C',
+                        muDeepRed: '#9E1B14',
+                        muYellow: '#FBE122',
+                        muGold: '#D4AF37',
+                        muBlack: '#111111',
+                        muCharcoal: '#1A1A1A',
+                        muLightGray: '#F8F9FA',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for UX Polish & Animations -->
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111111;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #DA291C;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FBE122;
+        }
+
+        /* Active Nav Link Indicator */
+        .nav-link.active {
+            color: #FBE122;
+            position: relative;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2.5px;
+            background-color: #FBE122;
+            border-radius: 2px;
+        }
+
+        /* Subtle Devil Grid Pattern */
+        .hero-pattern {
+            background-image: radial-gradient(rgba(251, 225, 34, 0.14) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Modal Transitions */
+        .modal-backdrop {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-muLightGray text-muCharcoal antialiased selection:bg-muRed selection:text-white">
+
+    <!-- ==================== 1. STICKY NAVIGATION BAR ==================== -->
+    <header id="navbar" class="fixed top-0 w-full z-40 transition-all duration-300 bg-muBlack/95 backdrop-blur-md border-b border-muGold/30 shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex items-center space-x-3 group">
+                    <div class="w-11 h-11 rounded-full bg-muRed border-2 border-muYellow flex items-center justify-center shadow-lg shadow-muRed/30 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-fire-flame-curved text-muYellow text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-display font-extrabold text-white text-xl tracking-wide block leading-none">MANCHESTER</span>
+                        <span class="font-sans text-xs font-bold text-muYellow tracking-widest uppercase">UNITED • THE RED DEVILS</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="nav-link active text-white hover:text-muYellow font-medium text-sm transition-colors py-1">หน้าแรก</a>
+                    <a href="#history" class="nav-link text-white hover:text-muYellow font-medium text-sm transition-colors py-1">ประวัติสโมสร</a>
+                    <a href="#squad" class="nav-link text-white hover:text-muYellow font-medium text-sm transition-colors py-1">รายชื่อนักเตะ</a>
+                    <a href="#fixtures" class="nav-link text-white hover:text-muYellow font-medium text-sm transition-colors py-1">ตารางการแข่งขัน</a>
+                    <a href="#stadium" class="nav-link text-white hover:text-muYellow font-medium text-sm transition-colors py-1">โอลด์ แทรฟฟอร์ด</a>
+                </nav>
+
+                <!-- CTA Button (Desktop) -->
+                <div class="hidden md:flex items-center">
+                    <button onclick="openClubInfoModal()" class="bg-muRed hover:bg-muDeepRed text-white border border-muYellow/60 px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-md hover:shadow-muRed/40 flex items-center gap-2">
+                        <i class="fa-solid fa-crown text-muYellow"></i>
+                        <span>ข้อมูลเชิงลึกสโมสร</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" aria-label="เปิดเมนู" class="text-white hover:text-muYellow p-2 rounded-lg focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-muCharcoal border-t border-muGold/25 px-4 pt-2 pb-6 space-y-2 shadow-2xl">
+            <a href="#home" class="mobile-nav-link block px-4 py-3 rounded-xl text-white hover:bg-muBlack hover:text-muYellow font-medium">1. หน้าแรก</a>
+            <a href="#history" class="mobile-nav-link block px-4 py-3 rounded-xl text-white hover:bg-muBlack hover:text-muYellow font-medium">2. ประวัติสโมสร</a>
+            <a href="#squad" class="mobile-nav-link block px-4 py-3 rounded-xl text-white hover:bg-muBlack hover:text-muYellow font-medium">3. รายชื่อนักเตะ</a>
+            <a href="#fixtures" class="mobile-nav-link block px-4 py-3 rounded-xl text-white hover:bg-muBlack hover:text-muYellow font-medium">4. ตารางการแข่งขัน</a>
+            <a href="#stadium" class="mobile-nav-link block px-4 py-3 rounded-xl text-white hover:bg-muBlack hover:text-muYellow font-medium">5. สนามโอลด์ แทรฟฟอร์ด</a>
+            <div class="pt-2">
+                <button onclick="openClubInfoModal()" class="w-full bg-muRed hover:bg-muDeepRed text-white border border-muYellow py-3 rounded-xl font-semibold flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-crown text-muYellow"></i> ข้อมูลเชิงลึกสโมสร
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 2. HERO SECTION (หน้าแรก) ==================== -->
+    <section id="home" class="relative pt-28 pb-20 lg:pt-36 lg:pb-28 bg-gradient-to-br from-muBlack via-muCharcoal to-muDeepRed text-white overflow-hidden">
+        <div class="absolute inset-0 hero-pattern opacity-70"></div>
+        <!-- Decorative Red & Gold Glows -->
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-muRed/30 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-10 w-80 h-80 bg-muYellow/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 border border-muYellow/50 text-muYellow text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2.5 h-2.5 rounded-full bg-muRed animate-ping"></span>
+                        THE RED DEVILS • โรงละครแห่งความฝัน (EST. 1878)
+                    </div>
+                    
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+                        สโมสรฟุตบอล<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-muYellow to-muGold">
+                            แมนเชสเตอร์ ยูไนเต็ด
+                        </span>
+                    </h1>
+                    
+                    <p class="text-slate-200 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        ตำนานความยิ่งใหญ่แห่งเกาะอังกฤษ เจ้าของฉายา <strong class="text-muYellow font-semibold">"ปีศาจแดง" (The Red Devils)</strong> สัญลักษณ์แห่งความมุ่งมั่น เกมรุกที่เร้าใจ และจิตวิญญาณผู้ชนะที่ไม่เคยยอมแพ้จนวินาทีสุดท้าย
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#squad" class="px-8 py-4 rounded-xl bg-muRed hover:bg-muDeepRed text-white font-bold shadow-lg shadow-muRed/40 border border-muYellow/50 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-users text-muYellow"></i> สำรวจขุมกำลังนักเตะ
+                        </a>
+                        <a href="#history" class="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm border border-white/25 transition-all flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-trophy text-muYellow"></i> ประวัติและเกียรติยศ
+                        </a>
+                    </div>
+
+                    <!-- Quick Stats Bar -->
+                    <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/15">
+                        <div>
+                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-muYellow">20 สมัย</div>
+                            <div class="text-xs sm:text-sm text-slate-300">แชมป์ลีกสูงสุดอังกฤษ</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-white">3 สมัย</div>
+                            <div class="text-xs sm:text-sm text-slate-300">ยูฟ่า แชมเปียนส์ลีก</div>
+                        </div>
+                        <div>
+                            <div class="font-display text-2xl sm:text-3xl font-extrabold text-muYellow">1878</div>
+                            <div class="text-xs sm:text-sm text-slate-300">ปีที่ก่อตั้งสโมสร</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative rounded-3xl overflow-hidden border-2 border-muGold shadow-2xl bg-muBlack group">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x600/111111/FBE122?text=Old+Trafford+Theatre+of+Dreams'"
+                             alt="บรรยากาศสนามโอลด์ แทรฟฟอร์ด" 
+                             class="w-full h-80 sm:h-96 object-cover group-hover:scale-105 transition-transform duration-700 opacity-85">
+                        <div class="absolute inset-0 bg-gradient-to-t from-muBlack via-muBlack/45 to-transparent"></div>
+                        <div class="absolute bottom-0 inset-x-0 p-6 sm:p-8">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="px-3 py-1 bg-muRed text-white text-xs font-bold rounded-full uppercase tracking-wider border border-muYellow/40">THEATRE OF DREAMS</span>
+                                <span class="text-muYellow text-sm font-semibold"><i class="fa-solid fa-star mr-1"></i>Glory Glory Man United</span>
+                            </div>
+                            <h3 class="font-display text-xl sm:text-2xl font-bold text-white mb-2">จิตวิญญาณแห่งปีศาจแดง</h3>
+                            <p class="text-slate-300 text-sm mb-4">เจาะลึกทุกเรื่องราวของสโมสร ตั้งแต่จุดกำเนิด นิวตัน ฮีธ สู่ความยิ่งใหญ่ระดับโลก</p>
+                            <button onclick="openClubInfoModal()" class="text-muYellow hover:text-white text-sm font-bold inline-flex items-center gap-2 transition-colors">
+                                เปิดอ่านข้อมูลสโมสรฉบับเต็ม <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. HISTORY & ACHIEVEMENTS (ประวัติสโมสร) ==================== -->
+    <section id="history" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-muRed font-bold text-sm tracking-widest uppercase block mb-2">HERITAGE & TROPHIES</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-muBlack mb-4">ประวัติศาสตร์และเกียรติประวัติสโมสร</h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-muRed via-muYellow to-muRed mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600">เส้นทางแห่งความภาคภูมิใจกว่า 145 ปี คลิกที่การ์ดแต่ละยุคสมัยเพื่อเปิดหน้าต่างอ่านเรื่องราวเชิงลึกและประวัติศาสตร์สำคัญ</p>
+            </div>
+
+            <!-- Interactive Timeline Cards (4 Eras) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" id="history-cards-container">
+                <!-- Populated via JS -->
+            </div>
+
+            <!-- Trophy Cabinet Banner & Summary Table -->
+            <div class="bg-gradient-to-br from-muBlack via-muCharcoal to-muDeepRed rounded-3xl p-8 sm:p-10 text-white border-2 border-muGold/50 shadow-2xl">
+                <div class="flex flex-col lg:flex-row items-center justify-between gap-8 mb-8">
+                    <div class="space-y-2 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 text-muYellow font-bold text-sm">
+                            <i class="fa-solid fa-trophy"></i> ทำเนียบแชมป์เมเจอร์ระดับสโมสร
+                        </div>
+                        <h3 class="font-display text-2xl sm:text-3xl font-extrabold">ตู้โชว์ถ้วยรางวัลของปีศาจแดง</h3>
+                        <p class="text-slate-300 text-sm max-w-xl">รวมถ้วยรางวัลระดับเมเจอร์ทั้งในประเทศและระดับทวีปยุโรปที่เป็นเครื่องยืนยันความยิ่งใหญ่ตลอดกาล</p>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full lg:w-auto">
+                        <div class="bg-white/10 backdrop-blur-sm border border-muYellow/40 rounded-2xl p-4 text-center hover:bg-muRed/30 transition-colors">
+                            <i class="fa-solid fa-crown text-2xl text-muYellow mb-2"></i>
+                            <div class="font-display text-2xl font-extrabold">20</div>
+                            <div class="text-xs text-slate-200">ลีกสูงสุดอังกฤษ</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-muYellow/40 rounded-2xl p-4 text-center hover:bg-muRed/30 transition-colors">
+                            <i class="fa-solid fa-trophy text-2xl text-muRed mb-2"></i>
+                            <div class="font-display text-2xl font-extrabold">13</div>
+                            <div class="text-xs text-slate-200">เอฟเอ คัพ</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-muYellow/40 rounded-2xl p-4 text-center hover:bg-muRed/30 transition-colors">
+                            <i class="fa-solid fa-globe-europe text-2xl text-muYellow mb-2"></i>
+                            <div class="font-display text-2xl font-extrabold">3</div>
+                            <div class="text-xs text-slate-200">ยูฟ่า แชมเปียนส์ลีก</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-muYellow/40 rounded-2xl p-4 text-center hover:bg-muRed/30 transition-colors">
+                            <i class="fa-solid fa-medal text-2xl text-muRed mb-2"></i>
+                            <div class="font-display text-2xl font-extrabold">6</div>
+                            <div class="text-xs text-slate-200">ลีก คัพ</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Trophy Table -->
+                <div class="overflow-x-auto bg-muBlack/60 rounded-2xl border border-white/10">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-muRed/90 text-white font-display uppercase text-xs tracking-wider">
+                            <tr>
+                                <th class="py-3.5 px-5">รายการแข่งขัน (Competition)</th>
+                                <th class="py-3.5 px-5 text-center">จำนวนแชมป์</th>
+                                <th class="py-3.5 px-5">ปีที่คว้าแชมป์ล่าสุด / ไฮไลต์สำคัญ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-white/10 text-slate-200">
+                            <tr class="hover:bg-white/5">
+                                <td class="py-3 px-5 font-semibold text-white">พรีเมียร์ลีก / ดิวิชัน 1 เดิม</td>
+                                <td class="py-3 px-5 text-center font-bold text-muYellow">20 สมัย</td>
+                                <td class="py-3 px-5 text-xs sm:text-sm">2012–13 (แชมป์ลีกสูงสุดมากที่สุดร่วมในอังกฤษ)</td>
+                            </tr>
+                            <tr class="hover:bg-white/5">
+                                <td class="py-3 px-5 font-semibold text-white">เอฟเอ คัพ (FA Cup)</td>
+                                <td class="py-3 px-5 text-center font-bold text-muYellow">13 สมัย</td>
+                                <td class="py-3 px-5 text-xs sm:text-sm">2023–24 (ชนะ แมนเชสเตอร์ ซิตี้ 2-1 ที่เวมบลีย์)</td>
+                            </tr>
+                            <tr class="hover:bg-white/5">
+                                <td class="py-3 px-5 font-semibold text-white">ยูฟ่า แชมเปียนส์ลีก / ยูโรเปียน คัพ</td>
+                                <td class="py-3 px-5 text-center font-bold text-muYellow">3 สมัย</td>
+                                <td class="py-3 px-5 text-xs sm:text-sm">1968, 1999 (Treble), 2008</td>
+                            </tr>
+                            <tr class="hover:bg-white/5">
+                                <td class="py-3 px-5 font-semibold text-white">ยูฟ่า ยูโรปา ลีก & ฟีฟ่า คลับ เวิลด์ คัพ</td>
+                                <td class="py-3 px-5 text-center font-bold text-muYellow">อย่างละ 1 สมัย</td>
+                                <td class="py-3 px-5 text-xs sm:text-sm">สโมสรแรกของอังกฤษที่คว้าแชมป์สโมสรโลก (2008)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. SQUAD SECTION (รายชื่อนักเตะ) ==================== -->
+    <section id="squad" class="py-20 bg-muLightGray border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-muRed font-bold text-sm tracking-widest uppercase block mb-2">FIRST TEAM SQUAD</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-muBlack">ขุมกำลังนักเตะชุดปัจจุบัน</h2>
+                    <p class="text-slate-600 mt-2">กรองรายชื่อตามตำแหน่ง และคลิกที่การ์ดนักเตะเพื่อเปิดดูประวัติ สถิติ และสไตล์การเล่นรายบุคคล</p>
+                </div>
+
+                <!-- Position Filter Tabs -->
+                <div class="flex flex-wrap gap-2" id="squad-filters">
+                    <button data-filter="ALL" class="filter-btn active px-5 py-2.5 rounded-full text-sm font-bold bg-muRed text-white border border-muYellow shadow-md transition-all">
+                        ทั้งหมด
+                    </button>
+                    <button data-filter="GK" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-muBlack hover:bg-muBlack hover:text-muYellow border border-slate-300 transition-all">
+                        ผู้รักษาประตู
+                    </button>
+                    <button data-filter="DEF" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-muBlack hover:bg-muBlack hover:text-muYellow border border-slate-300 transition-all">
+                        กองหลัง
+                    </button>
+                    <button data-filter="MID" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-muBlack hover:bg-muBlack hover:text-muYellow border border-slate-300 transition-all">
+                        กองกลาง
+                    </button>
+                    <button data-filter="FWD" class="filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-muBlack hover:bg-muBlack hover:text-muYellow border border-slate-300 transition-all">
+                        กองหน้า
+                    </button>
+                </div>
+            </div>
+
+            <!-- Players Grid -->
+            <div id="players-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. FIXTURES & RESULTS (ตารางการแข่งขัน) ==================== -->
+    <section id="fixtures" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-muRed font-bold text-sm tracking-widest uppercase block mb-2">MATCH CENTER</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-muBlack mb-4">ตารางการแข่งขันและผลการแข่งขัน</h2>
+                <div class="w-24 h-1.5 bg-gradient-to-r from-muRed via-muYellow to-muRed mx-auto rounded-full mb-6"></div>
+                
+                <!-- Interactive Toggle Tabs -->
+                <div class="inline-flex p-1.5 bg-muLightGray rounded-2xl border border-slate-200 shadow-inner">
+                    <button id="tab-upcoming" onclick="switchMatchTab('upcoming')" class="px-6 py-2.5 rounded-xl text-sm font-bold bg-muRed text-white shadow transition-all">
+                        โปรแกรมแข่งขันถัดไป
+                    </button>
+                    <button id="tab-results" onclick="switchMatchTab('results')" class="px-6 py-2.5 rounded-xl text-sm font-semibold text-muBlack hover:text-muRed transition-all">
+                        ผลการแข่งขันล่าสุด
+                    </button>
+                </div>
+            </div>
+
+            <!-- Matches List Container -->
+            <div id="matches-container" class="max-w-4xl mx-auto space-y-4">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. OLD TRAFFORD (สนามโอลด์ แทรฟฟอร์ด) ==================== -->
+    <section id="stadium" class="py-20 bg-muBlack text-white relative overflow-hidden">
+        <!-- Decorative Red & Gold Border Top -->
+        <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-muRed via-muYellow to-muRed"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <!-- Stadium Visual & Quick Specs -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="relative rounded-3xl overflow-hidden border-2 border-muGold shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1577223625816-7546f13df25d?auto=format&fit=crop&w=900&q=80" 
+                             onerror="this.src='https://placehold.co/900x600/111111/FBE122?text=Old+Trafford+74310+Capacity'"
+                             alt="สนามโอลด์ แทรฟฟอร์ด" 
+                             class="w-full h-80 sm:h-96 object-cover">
+                        <div class="absolute top-4 left-4 bg-muRed text-white px-4 py-1.5 rounded-full text-xs font-bold border border-muYellow shadow-lg">
+                            เปิดใช้งานตั้งแต่ปี ค.ศ. 1910
+                        </div>
+                    </div>
+
+                    <!-- Stadium Quick Specs -->
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-muCharcoal border border-muGold/40 p-4 rounded-2xl text-center">
+                            <div class="text-muYellow text-xs uppercase font-bold mb-1">ความจุผู้ชม</div>
+                            <div class="font-display text-xl sm:text-2xl font-extrabold text-white">74,310</div>
+                        </div>
+                        <div class="bg-muCharcoal border border-muGold/40 p-4 rounded-2xl text-center">
+                            <div class="text-muYellow text-xs uppercase font-bold mb-1">ขนาดสนามหญ้า</div>
+                            <div class="font-display text-xl sm:text-2xl font-extrabold text-white">105 × 68 ม.</div>
+                        </div>
+                        <div class="bg-muCharcoal border border-muGold/40 p-4 rounded-2xl text-center">
+                            <div class="text-muYellow text-xs uppercase font-bold mb-1">ฉายาสนาม</div>
+                            <div class="font-display text-sm sm:text-base font-extrabold text-muYellow mt-1">โรงละครแห่งความฝัน</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stadium Details & Interactive Trivia Accordion -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div>
+                        <span class="text-muYellow font-bold text-sm tracking-widest uppercase block mb-2">THE THEATRE OF DREAMS</span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-white mb-4">สนามโอลด์ แทรฟฟอร์ด</h2>
+                        <p class="text-slate-300 leading-relaxed">
+                            รังเหย้าอันศักดิ์สิทธิ์ของสโมสรแมนเชสเตอร์ ยูไนเต็ด ตั้งอยู่ในย่านแทรฟฟอร์ด เมืองแมนเชสเตอร์ เป็นสนามฟุตบอลสโมสรที่ใหญ่ที่สุดในสหราชอาณาจักร และได้รับการขนานนามว่า <strong class="text-muYellow">"โรงละครแห่งความฝัน" (The Theatre of Dreams)</strong> โดย เซอร์ บ็อบบี้ ชาร์ลตัน
+                        </p>
+                    </div>
+
+                    <!-- Interactive Trivia Accordion -->
+                    <div class="space-y-3" id="stadium-trivia">
+                        <!-- Trivia Item 1: The United Trinity -->
+                        <div class="bg-muCharcoal border border-muGold/35 rounded-2xl overflow-hidden">
+                            <button onclick="toggleTrivia(1)" class="w-full px-6 py-4 text-left flex justify-between items-center font-semibold hover:text-muYellow transition-colors">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-monument text-muRed"></i>
+                                    1. รูปปั้นสามทหารเสือ (The United Trinity)
+                                </span>
+                                <i id="trivia-icon-1" class="fa-solid fa-chevron-down text-muYellow rotate-180 transition-transform"></i>
+                            </button>
+                            <div id="trivia-content-1" class="px-6 pb-4 text-sm text-slate-300 leading-relaxed border-t border-white/10 pt-3">
+                                ด้านหน้าอัฒจันทร์ฝั่งตะวันออกประดิษฐานรูปปั้นสำริดของ 3 ตำนานผู้คว้ารางวัลบัลลงดอร์ ได้แก่ <strong>จอร์จ เบสต์, เดนิส ลอว์ และ เซอร์ บ็อบบี้ ชาร์ลตัน</strong> ผู้พาทีมสร้างประวัติศาสตร์คว้าแชมป์ยุโรปสมัยแรกในปี 1968
+                            </div>
+                        </div>
+
+                        <!-- Trivia Item 2: Munich Tunnel -->
+                        <div class="bg-muCharcoal border border-muGold/35 rounded-2xl overflow-hidden">
+                            <button onclick="toggleTrivia(2)" class="w-full px-6 py-4 text-left flex justify-between items-center font-semibold hover:text-muYellow transition-colors">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-clock text-muRed"></i>
+                                    2. อุโมงค์มิวนิกและนาฬิกาประวัติศาสตร์ (Munich Tunnel)
+                                </span>
+                                <i id="trivia-icon-2" class="fa-solid fa-chevron-down text-muYellow transition-transform"></i>
+                            </button>
+                            <div id="trivia-content-2" class="hidden px-6 pb-4 text-sm text-slate-300 leading-relaxed border-t border-white/10 pt-3">
+                                อุโมงค์อนุสรณ์ที่จัดแสดงเรื่องราวของทีมชุด "บัสบี เบบส์" และนาฬิกามิวนิกที่หยุดเดินไว้ที่เวลา 15:04 น. วันที่ 6 กุมภาพันธ์ 1958 เพื่อรำลึกถึงโศกนาฏกรรมเครื่องบินตกที่เมืองมิวนิกอย่างสมเกียรติ
+                            </div>
+                        </div>
+
+                        <!-- Trivia Item 3: Club Museum -->
+                        <div class="bg-muCharcoal border border-muGold/35 rounded-2xl overflow-hidden">
+                            <button onclick="toggleTrivia(3)" class="w-full px-6 py-4 text-left flex justify-between items-center font-semibold hover:text-muYellow transition-colors">
+                                <span class="flex items-center gap-3">
+                                    <i class="fa-solid fa-landmark text-muRed"></i>
+                                    3. พิพิธภัณฑ์สโมสรและห้องแต่งตัวนักเตะ (Club Museum & Tour)
+                                </span>
+                                <i id="trivia-icon-3" class="fa-solid fa-chevron-down text-muYellow transition-transform"></i>
+                            </button>
+                            <div id="trivia-content-3" class="hidden px-6 pb-4 text-sm text-slate-300 leading-relaxed border-t border-white/10 pt-3">
+                                ตั้งอยู่ภายในอัฒจันทร์ฝั่ง Sir Alex Ferguson Stand จัดแสดงถ้วยรางวัลจริงครบทุกใบ เสื้อแข่งประวัติศาสตร์ และเปิดให้แฟนบอลเดินผ่านอุโมงค์นักเตะลงสู่ขอบสนามโอลด์ แทรฟฟอร์ด
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <button onclick="openStadiumGuideModal()" class="px-6 py-3.5 rounded-xl bg-muRed hover:bg-muDeepRed text-white border border-muYellow font-bold transition-all shadow-lg shadow-muRed/30 inline-flex items-center gap-2">
+                            <i class="fa-solid fa-map-location-dot text-muYellow"></i> เปิดผังอัฒจันทร์ทั้ง 4 ทิศของโอลด์ แทรฟฟอร์ด
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-muCharcoal text-slate-400 py-12 border-t border-muGold/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-muRed border border-muYellow flex items-center justify-center text-muYellow">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <div>
+                        <span class="font-display font-extrabold text-white text-lg block leading-none">MANCHESTER UNITED</span>
+                        <span class="text-xs text-muYellow font-medium">The Red Devils • Official Club Palette</span>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 text-sm">
+                    <a href="#home" class="hover:text-muYellow transition-colors">หน้าแรก</a>
+                    <a href="#history" class="hover:text-muYellow transition-colors">ประวัติสโมสร</a>
+                    <a href="#squad" class="hover:text-muYellow transition-colors">รายชื่อนักเตะ</a>
+                    <a href="#fixtures" class="hover:text-muYellow transition-colors">ตารางการแข่งขัน</a>
+                    <a href="#stadium" class="hover:text-muYellow transition-colors">โอลด์ แทรฟฟอร์ด</a>
+                </div>
+
+                <div class="text-xs text-center md:text-right">
+                    <p class="text-slate-300">© 2026 Manchester United Fan Portal (Red Devils Edition).</p>
+                    <p class="text-slate-500 mt-1">ออกแบบด้วยหลักการ Modern UX/UI และ Responsive Design 100%</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== UNIVERSAL DETAIL MODAL ==================== -->
+    <div id="detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6">
+        <!-- Backdrop -->
+        <div onclick="closeModal()" class="modal-backdrop fixed inset-0 bg-muBlack/85 backdrop-blur-sm"></div>
+        
+        <!-- Modal Box -->
+        <div class="modal-content relative bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border-2 border-muGold z-10">
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-muBlack text-white px-6 py-4 flex justify-between items-center border-b border-muGold/40 z-20">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-3 h-3 rounded-full bg-muRed"></span>
+                    <h3 id="modal-title" class="font-display font-bold text-lg sm:text-xl text-white">รายละเอียด</h3>
+                </div>
+                <button onclick="closeModal()" aria-label="ปิดหน้าต่าง" class="w-9 h-9 rounded-full bg-white/10 hover:bg-muRed text-white flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div id="modal-body" class="p-6 sm:p-8 text-muCharcoal">
+                <!-- Dynamic Content Injected Here -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-muLightGray px-6 py-4 border-t border-slate-200 flex justify-end">
+                <button onclick="closeModal()" class="px-6 py-2.5 rounded-xl bg-muBlack hover:bg-muRed text-white font-semibold text-sm transition-colors">
+                    ปิดหน้าต่าง
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // -------------------- DATA STORE --------------------
+        const historyEras = [
+            {
+                id: 'era-1878',
+                year: '1878 - 1902',
+                title: 'ยุคก่อตั้ง นิวตัน ฮีธ',
+                subtitle: 'Newton Heath LYR F.C.',
+                icon: 'fa-train',
+                summary: 'จุดกำเนิดจากพนักงานการรถไฟสายแลงคาเชียร์และยอร์กเชียร์ ก่อนเปลี่ยนชื่อเป็น แมนเชสเตอร์ ยูไนเต็ด ในปี 1902',
+                details: `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-muRed/10 border-l-4 border-muRed">
+                            <h4 class="font-bold text-muBlack text-lg mb-1">จากพนักงานรถไฟสู่สโมสรระดับตำนาน</h4>
+                            <p class="text-sm text-slate-700">ในปี ค.ศ. 1878 กลุ่มพนักงานแผนกตู้โดยสารและเกวียนของบริษัทรถไฟ Lancashire and Yorkshire Railway ได้ร่วมกันก่อตั้งทีมฟุตบอลในชื่อ <strong>Newton Heath LYR</strong> โดยสวมชุดแข่งสีเขียว-ทองอันเป็นเอกลักษณ์</p>
+                        </div>
+                        <p class="text-sm leading-relaxed text-slate-700">ในปี 1902 สโมสรประสบปัญหาทางการเงินอย่างหนักจนเกือบถูกยุบทีม แต่ได้รับการช่วยเหลือจาก <strong>จอห์น เฮนรี เดวีส์</strong> นักธุรกิจท้องถิ่นที่เข้ามาลงทุนกอบกู้สโมสร พร้อมเปลี่ยนชื่อทีมใหม่เป็น <strong>"แมนเชสเตอร์ ยูไนเต็ด" (Manchester United)</strong> และเปลี่ยนสีเสื้อประจำสโมสรเป็นสีแดง-ขาว</p>
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <div class="bg-muLightGray p-3.5 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-500 block">วันเปลี่ยนชื่อสโมสร</span>
+                                <span class="font-bold text-muBlack">26 เมษายน 1902</span>
+                            </div>
+                            <div class="bg-muLightGray p-3.5 rounded-xl border border-slate-200">
+                                <span class="text-xs text-slate-500 block">แชมป์ลีกสมัยแรก</span>
+                                <span class="font-bold text-muRed">ฤดูกาล 1907–08</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'era-busby',
+                year: '1945 - 1969',
+                title: 'ยุค Sir Matt Busby & Busby Babes',
+                subtitle: 'The Busby Babes & European Glory',
+                icon: 'fa-plane-up',
+                summary: 'สร้างทีมพลังหนุ่ม "บัสบี เบบส์" ก้าวข้ามโศกนาฏกรรมมิวนิก สู่การเป็นทีมอังกฤษทีมแรกที่คว้าแชมป์ยุโรป',
+                details: `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-muBlack text-white border-l-4 border-muYellow">
+                            <h4 class="font-bold text-muYellow text-lg mb-1">สร้างทีมจากเถ้าถ่านสู่เจ้ายุโรป</h4>
+                            <p class="text-sm text-slate-200">เซอร์ แมตต์ บัสบี ปฏิวัติวงการฟุตบอลด้วยการผลักดันนักเตะเยาวชนฝีเท้าจัดจ้านจนได้รับฉายาว่า "บัสบี เบบส์" (Busby Babes) และคว้าแชมป์ลีกได้อย่างต่อเนื่อง</p>
+                        </div>
+                        <p class="text-sm leading-relaxed text-slate-700">หลังเกิดโศกนาฏกรรมเครื่องบินตกที่มิวนิกในปี 1958 บัสบีและผู้รอดชีวิตอย่าง <strong>เซอร์ บ็อบบี้ ชาร์ลตัน</strong> ได้ร่วมกันสร้างทีมขึ้นมาใหม่อีกครั้ง ร่วมกับ <strong>เดนิส ลอว์</strong> และ <strong>จอร์จ เบสต์</strong> จนสามารถคว้าแชมป์ยูโรเปียน คัพ (ยูฟ่า แชมเปียนส์ลีก) ได้สำเร็จในปี 1968 ณ สนามเวมบลีย์</p>
+                    </div>
+                `
+            },
+            {
+                id: 'era-fergie',
+                year: '1986 - 2013',
+                title: 'ยุคทอง Sir Alex Ferguson & Treble',
+                subtitle: '26 Years of Dominance & 1999 Treble',
+                icon: 'fa-crown',
+                summary: 'กวาดแชมป์รวม 38 รายการ รวมถึงประวัติศาสตร์ทริปเปิลแชมป์ (Treble) อันยิ่งใหญ่ในปี 1999',
+                details: `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-gradient-to-r from-muBlack to-muDeepRed text-white border border-muYellow">
+                            <h4 class="font-bold text-muYellow text-lg mb-1">ยุคสมัยที่ยิ่งใหญ่ที่สุดในพรีเมียร์ลีก</h4>
+                            <p class="text-sm text-slate-100">เซอร์ อเล็กซ์ เฟอร์กูสัน พาทีมคว้าแชมป์พรีเมียร์ลีกถึง 13 สมัย แซงหน้าสถิติแชมป์ลีกสูงสุดตลอดกาลของอังกฤษ</p>
+                        </div>
+                        <p class="text-sm leading-relaxed text-slate-700">จุดสูงสุดคือฤดูกาล <strong>1998–99</strong> ที่แมนเชสเตอร์ ยูไนเต็ด สร้างประวัติศาสตร์เป็นสโมสรแรกของอังกฤษที่คว้า <strong>"ทริปเปิลแชมป์"</strong> (พรีเมียร์ลีก, เอฟเอ คัพ และ ยูฟ่า แชมเปียนส์ลีก) ในฤดูกาลเดียวกัน ด้วยชัยชนะสุดดราม่าเหนือบาเยิร์น มิวนิก 2-1 ในช่วงทดเวลาบาดเจ็บ</p>
+                    </div>
+                `
+            },
+            {
+                id: 'era-modern',
+                year: '2014 - ปัจจุบัน',
+                title: 'ยุคปัจจุบัน & การฟื้นฟูทีม',
+                subtitle: 'Modern Era & Rebuilding Future',
+                icon: 'fa-bolt',
+                summary: 'การผสานดาวรุ่งจากอะคาเดมีและนักเตะระดับโลก เพื่อทวงคืนความยิ่งใหญ่ในเวทีพรีเมียร์ลีกและยุโรป',
+                details: `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-2xl bg-muLightGray border-l-4 border-muBlack">
+                            <h4 class="font-bold text-muBlack text-lg mb-1">สานต่อดีเอ็นเอปีศาจแดง</h4>
+                            <p class="text-sm text-slate-700">สโมสรยังคงรักษาสถิติส่งนักเตะจากอะคาเดมีลงสนามในทีมชุดใหญ่ทุกนัดต่อเนื่องยาวนานกว่า 85 ปี</p>
+                        </div>
+                        <p class="text-sm leading-relaxed text-slate-700">ในช่วงทศวรรษที่ผ่านมา สโมสรคว้าแชมป์ยูฟ่า ยูโรปา ลีก (2017), เอฟเอ คัพ (2016, 2024) และลีก คัพ (2017, 2023) พร้อมเดินหน้าปรับปรุงโครงสร้างสโมสรและยกระดับทีมเพื่อกลับสู่จุดสูงสุดของวงการฟุตบอลอีกครั้ง</p>
+                    </div>
+                `
+            }
+        ];
+
+        const playersData = [
+            {
+                number: 24,
+                name: 'อ็องเดร โอนาน่า',
+                enName: 'André Onana',
+                position: 'GK',
+                posLabel: 'ผู้รักษาประตู',
+                nationality: 'แคเมอรูน',
+                age: 30,
+                stats: { apps: 98, cleanSheets: 30, saves: 278 },
+                bio: 'ผู้รักษาประตูจอมหนึบที่มีจุดเด่นด้านการใช้เท้าเปิดเกมรุกได้อย่างแม่นยำและปฏิกิริยาเซฟลูกยิงระยะประชิดที่ยอดเยี่ยม'
+            },
+            {
+                number: 6,
+                name: 'ลิซานโดร มาร์ติเนซ',
+                enName: 'Lisandro Martínez',
+                position: 'DEF',
+                posLabel: 'กองหลัง',
+                nationality: 'อาร์เจนตินา',
+                age: 28,
+                stats: { apps: 86, goals: 3, tackles: 185 },
+                bio: 'ปราการหลังเจ้าของฉายา "The Butcher" ผู้มีความดุดัน อ่านเกมขาด และจ่ายบอลทะลุช่องจากแดนหลังได้อย่างเฉียบคม'
+            },
+            {
+                number: 4,
+                name: 'มัทไธส์ เดอ ลิกต์',
+                enName: 'Matthijs de Ligt',
+                position: 'DEF',
+                posLabel: 'กองหลัง',
+                nationality: 'เนเธอร์แลนด์',
+                age: 26,
+                stats: { apps: 62, goals: 5, aerialWon: '75%' },
+                bio: 'เซ็นเตอร์แบ็กผู้นำเกมรับที่มีความแข็งแกร่งในการดวลลูกกลางอากาศและประสบการณ์ในเวทียุโรปอย่างโชกโชน'
+            },
+            {
+                number: 3,
+                name: 'นุสแซร์ มาซราอุย',
+                enName: 'Noussair Mazraoui',
+                position: 'DEF',
+                posLabel: 'กองหลัง',
+                nationality: 'โมร็อกโก',
+                age: 28,
+                stats: { apps: 65, assists: 8, passAcc: '90%' },
+                bio: 'ฟูลแบ็กสารพัดประโยชน์ที่เล่นได้ทั้งฝั่งขวาและซ้าย มีทักษะการครองบอลและการเติมเกมรุกที่ชาญฉลาด'
+            },
+            {
+                number: 8,
+                name: 'บรูโน่ แฟร์นันด์ส (C)',
+                enName: 'Bruno Fernandes',
+                position: 'MID',
+                posLabel: 'กองกลาง',
+                nationality: 'โปรตุเกส',
+                age: 31,
+                stats: { apps: 274, goals: 91, assists: 80 },
+                bio: 'กัปตันทีมและหัวใจสำคัญในเกมรุกของปีศาจแดง โดดเด่นด้วยการสร้างสรรค์โอกาส การจ่ายคีย์พาส และลูกยิงไกลอันทรงพลัง'
+            },
+            {
+                number: 37,
+                name: 'ค็อบบี้ เมนู',
+                enName: 'Kobbie Mainoo',
+                position: 'MID',
+                posLabel: 'กองกลาง',
+                nationality: 'อังกฤษ',
+                age: 21,
+                stats: { apps: 79, goals: 9, dribbleSuccess: '69%' },
+                bio: 'ผลผลิตชั้นยอดจากอะคาเดมีแมนยู มิดฟิลด์พรสวรรค์สูงที่มีความนิ่งเกินวัย การเอาตัวรอดในพื้นที่แคบ และการคุมจังหวะเกมระดับโลก'
+            },
+            {
+                number: 16,
+                name: 'อาหมัด ดิยัลโล่',
+                enName: 'Amad Diallo',
+                position: 'FWD',
+                posLabel: 'กองหน้า / ปีก',
+                nationality: 'ไอวอรีโคสต์',
+                age: 24,
+                stats: { apps: 74, goals: 19, assists: 15 },
+                bio: 'แนวรุกเท้าซ้ายจอมพลิ้วที่มีความเร็วและการเลี้ยงบอลที่อันตราย มักสร้างจุดเปลี่ยนสำคัญให้ทีมในเกมใหญ่เสมอ'
+            },
+            {
+                number: 9,
+                name: 'ราสมุส ฮอยลุนด์',
+                enName: 'Rasmus Højlund',
+                position: 'FWD',
+                posLabel: 'กองหน้า',
+                nationality: 'เดนมาร์ก',
+                age: 23,
+                stats: { apps: 92, goals: 35, assists: 7 },
+                bio: 'ศูนย์หน้าพลังหนุ่มที่มีความเร็วจัดจ้าน การวิ่งทำทางหาช่องว่าง และความกระหายในการพังประตูคู่แข่ง'
+            }
+        ];
+
+        const matchesData = {
+            upcoming: [
+                {
+                    competition: 'พรีเมียร์ลีก อังกฤษ',
+                    date: 'เสาร์ที่ 21 พ.ย. 2026',
+                    time: '22:00 น.',
+                    home: 'แมนเชสเตอร์ ยูไนเต็ด',
+                    away: 'ลิเวอร์พูล',
+                    venue: 'โอลด์ แทรฟฟอร์ด (เหย้า)',
+                    highlight: true,
+                    preview: 'ศึกแดงเดือด (North West Derby) ณ โรงละครแห่งความฝัน! เกมแห่งศักดิ์ศรีที่แฟนบอลทั่วโลกรอคอย ปีศาจแดงพร้อมจัดทัพใหญ่เปิดบ้านรับมือคู่ปรับตลอดกาล'
+                },
+                {
+                    competition: 'ยูฟ่า แชมเปียนส์ลีก',
+                    date: 'พุธที่ 25 พ.ย. 2026',
+                    time: '03:00 น.',
+                    home: 'บาเยิร์น มิวนิก',
+                    away: 'แมนเชสเตอร์ ยูไนเต็ด',
+                    venue: 'อัลลิอันซ์ อารีน่า (เยือน)',
+                    highlight: false,
+                    preview: 'เกมเยือนสุดเข้มข้นในเวทียูฟ่า แชมเปียนส์ลีก เพื่อลุ้นการันตีพื้นที่เข้ารอบน็อกเอาต์'
+                },
+                {
+                    competition: 'พรีเมียร์ลีก อังกฤษ',
+                    date: 'อาทิตย์ที่ 29 พ.ย. 2026',
+                    time: '23:30 น.',
+                    home: 'ท็อตแน่ม ฮ็อทสเปอร์',
+                    away: 'แมนเชสเตอร์ ยูไนเต็ด',
+                    venue: 'ท็อตแน่ม ฮ็อทสเปอร์ สเตเดียม (เยือน)',
+                    highlight: false,
+                    preview: 'บุกเยือนกรุงลอนดอนในเกมที่เน้นจังหวะโต้กลับเร็วและความเฉียบคมในพื้นที่สุดท้าย'
+                }
+            ],
+            results: [
+                {
+                    competition: 'พรีเมียร์ลีก อังกฤษ',
+                    date: '14 พ.ย. 2026',
+                    home: 'แมนเชสเตอร์ ยูไนเต็ด',
+                    score: '3 - 1',
+                    away: 'แอสตัน วิลล่า',
+                    status: 'ชนะ (W)',
+                    scorers: 'บรูโน่ 18\', ฮอยลุนด์ 54\', อาหมัด 82\''
+                },
+                {
+                    competition: 'ยูฟ่า แชมเปียนส์ลีก',
+                    date: '4 พ.ย. 2026',
+                    home: 'แมนเชสเตอร์ ยูไนเต็ด',
+                    score: '2 - 0',
+                    away: 'เอซี มิลาน',
+                    status: 'ชนะ (W)',
+                    scorers: 'เมนู 31\', มาร์ติเนซ 76\''
+                },
+                {
+                    competition: 'คาราบาว คัพ',
+                    date: '29 ต.ค. 2026',
+                    home: 'นิวคาสเซิล ยูไนเต็ด',
+                    score: '1 - 1 (จุดโทษ 3-4)',
+                    away: 'แมนเชสเตอร์ ยูไนเต็ด',
+                    status: 'ชนะจุดโทษ (W)',
+                    scorers: 'ฮอยลุนด์ 44\''
+                }
+            ]
+        };
+
+        // -------------------- RENDER FUNCTIONS --------------------
+        
+        // 1. Render History Cards
+        function renderHistoryCards() {
+            const container = document.getElementById('history-cards-container');
+            container.innerHTML = historyEras.map((era, index) => `
+                <div onclick="openHistoryModal(${index})" class="cursor-pointer group bg-muLightGray hover:bg-muBlack rounded-3xl p-6 border-2 border-slate-200 hover:border-muYellow transition-all duration-300 shadow-sm hover:shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="px-3 py-1 rounded-full bg-muRed text-white text-xs font-bold tracking-wider border border-muYellow/30">${era.year}</span>
+                            <div class="w-10 h-10 rounded-full bg-muRed/10 text-muRed group-hover:bg-muYellow group-hover:text-muBlack flex items-center justify-center transition-colors">
+                                <i class="fa-solid ${era.icon}"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-display text-xl font-bold text-muBlack group-hover:text-white mb-1 transition-colors">${era.title}</h3>
+                        <p class="text-xs font-bold text-muGold uppercase tracking-wider mb-3">${era.subtitle}</p>
+                        <p class="text-sm text-slate-600 group-hover:text-slate-300 leading-relaxed transition-colors">${era.summary}</p>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-200 group-hover:border-white/15 flex items-center justify-between text-xs font-bold text-muRed group-hover:text-muYellow">
+                        <span>คลิกอ่านเรื่องราวเชิงลึก</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 2. Render Squad Players
+        function renderPlayers(filter = 'ALL') {
+            const grid = document.getElementById('players-grid');
+            const filtered = filter === 'ALL' ? playersData : playersData.filter(p => p.position === filter);
+            
+            grid.innerHTML = filtered.map((player) => {
+                const originalIndex = playersData.findIndex(p => p.number === player.number);
+                return `
+                <div onclick="openPlayerModal(${originalIndex})" class="cursor-pointer group bg-white rounded-3xl overflow-hidden border border-slate-200 hover:border-muRed shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <!-- Top Card Banner (Man Utd Black & Red Gradient) -->
+                    <div class="relative h-32 bg-gradient-to-br from-muBlack via-muCharcoal to-muRed p-5 flex justify-between items-start">
+                        <span class="px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs font-semibold border border-white/20">
+                            ${player.posLabel}
+                        </span>
+                        <span class="font-display text-4xl font-extrabold text-muYellow leading-none">
+                            #${player.number}
+                        </span>
+                        <!-- Jersey Icon Badge -->
+                        <div class="absolute -bottom-8 left-6 w-16 h-16 rounded-2xl bg-muRed border-2 border-muYellow text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-shirt text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Card Content -->
+                    <div class="pt-11 p-6">
+                        <h3 class="font-display text-xl font-bold text-muBlack group-hover:text-muRed transition-colors">${player.name}</h3>
+                        <p class="text-xs text-slate-500 font-medium mb-4">${player.enName} • สัญชาติ${player.nationality}</p>
+                        
+                        <div class="flex items-center justify-between pt-3 border-t border-slate-100 text-xs font-bold text-muBlack">
+                            <span>อายุ ${player.age} ปี</span>
+                            <span class="text-muRed group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                                ดูสถิติและประวัติ <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // 3. Render Matches
+        function switchMatchTab(type) {
+            const btnUpcoming = document.getElementById('tab-upcoming');
+            const btnResults = document.getElementById('tab-results');
+            const container = document.getElementById('matches-container');
+
+            if (type === 'upcoming') {
+                btnUpcoming.className = 'px-6 py-2.5 rounded-xl text-sm font-bold bg-muRed text-white shadow transition-all';
+                btnResults.className = 'px-6 py-2.5 rounded-xl text-sm font-semibold text-muBlack hover:text-muRed transition-all';
+                
+                container.innerHTML = matchesData.upcoming.map((m, idx) => `
+                    <div class="bg-muLightGray rounded-2xl p-5 sm:p-6 border ${m.highlight ? 'border-2 border-muRed shadow-md' : 'border-slate-200'} flex flex-col sm:flex-row items-center justify-between gap-4 hover:bg-white transition-colors">
+                        <div class="text-center sm:text-left">
+                            <div class="inline-flex items-center gap-2 text-xs font-bold text-muRed uppercase tracking-wider mb-1">
+                                ${m.highlight ? '<i class="fa-solid fa-fire text-muGold"></i>' : ''} ${m.competition}
+                            </div>
+                            <div class="text-sm font-bold text-muBlack">${m.date} • เวลา ${m.time}</div>
+                            <div class="text-xs text-slate-500 mt-0.5"><i class="fa-solid fa-location-dot text-muRed mr-1"></i>${m.venue}</div>
+                        </div>
+
+                        <div class="flex items-center gap-4 sm:gap-6 my-2 sm:my-0">
+                            <span class="font-display font-bold text-base sm:text-lg text-muBlack text-right w-32 sm:w-40">${m.home}</span>
+                            <span class="px-3.5 py-1.5 rounded-lg bg-muBlack text-muYellow font-display font-extrabold text-sm border border-muYellow/50">VS</span>
+                            <span class="font-display font-bold text-base sm:text-lg text-muBlack text-left w-32 sm:w-40">${m.away}</span>
+                        </div>
+
+                        <button onclick="openMatchPreviewModal(${idx})" class="px-4 py-2.5 rounded-xl bg-muBlack hover:bg-muRed text-white text-xs font-bold transition-colors whitespace-nowrap">
+                            พรีวิวก่อนเกม
+                        </button>
+                    </div>
+                `).join('');
+            } else {
+                btnResults.className = 'px-6 py-2.5 rounded-xl text-sm font-bold bg-muRed text-white shadow transition-all';
+                btnUpcoming.className = 'px-6 py-2.5 rounded-xl text-sm font-semibold text-muBlack hover:text-muRed transition-all';
+
+                container.innerHTML = matchesData.results.map(m => `
+                    <div class="bg-muLightGray rounded-2xl p-5 sm:p-6 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-center sm:text-left">
+                            <span class="text-xs font-bold text-muRed uppercase tracking-wider block mb-1">${m.competition}</span>
+                            <div class="text-sm font-semibold text-slate-600">${m.date}</div>
+                            <span class="inline-block mt-1 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">${m.status}</span>
+                        </div>
+
+                        <div class="flex items-center gap-4 sm:gap-6">
+                            <span class="font-display font-bold text-base sm:text-lg text-muBlack text-right w-32 sm:w-40">${m.home}</span>
+                            <span class="px-4 py-1.5 rounded-xl bg-muRed text-white font-display font-extrabold text-base border border-muYellow shadow-sm">${m.score}</span>
+                            <span class="font-display font-bold text-base sm:text-lg text-muBlack text-left w-32 sm:w-40">${m.away}</span>
+                        </div>
+
+                        <div class="text-xs text-slate-600 text-center sm:text-right max-w-[190px]">
+                            <i class="fa-solid fa-futbol text-muRed mr-1"></i> ${m.scorers}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // -------------------- MODAL CONTROLLERS --------------------
+        const modal = document.getElementById('detail-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        function openModal(title, htmlContent) {
+            modalTitle.textContent = title;
+            modalBody.innerHTML = htmlContent;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+
+        function openClubInfoModal() {
+            openModal('ข้อมูลเชิงลึกสโมสรแมนเชสเตอร์ ยูไนเต็ด', `
+                <div class="space-y-5">
+                    <div class="p-5 rounded-2xl bg-gradient-to-r from-muBlack via-muCharcoal to-muDeepRed text-white border border-muYellow">
+                        <div class="text-xs text-muYellow font-bold uppercase tracking-widest mb-1">THE RED DEVILS IDENTITY</div>
+                        <h4 class="font-display text-2xl font-extrabold mb-2">Manchester United Football Club</h4>
+                        <p class="text-sm text-slate-200">สโมสรฟุตบอลระดับตำนานแห่งเมืองแมนเชสเตอร์ เจ้าของสถิติแชมป์ลีกสูงสุดอังกฤษ 20 สมัย และฐานแฟนบอลกว่า 1.1 พันล้านคนทั่วโลก</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                        <div class="p-4 rounded-xl bg-muLightGray border border-slate-200">
+                            <span class="text-slate-500 block text-xs">ชื่อเต็มสโมสร</span>
+                            <strong class="text-muBlack">Manchester United Football Club</strong>
+                        </div>
+                        <div class="p-4 rounded-xl bg-muLightGray border border-slate-200">
+                            <span class="text-slate-500 block text-xs">ฉายา</span>
+                            <strong class="text-muRed">ปีศาจแดง (The Red Devils)</strong>
+                        </div>
+                        <div class="p-4 rounded-xl bg-muLightGray border border-slate-200">
+                            <span class="text-slate-500 block text-xs">สนามเหย้า</span>
+                            <strong class="text-muBlack">โอลด์ แทรฟฟอร์ด (74,310 ที่นั่ง)</strong>
+                        </div>
+                        <div class="p-4 rounded-xl bg-muLightGray border border-slate-200">
+                            <span class="text-slate-500 block text-xs">สีประจำสโมสร</span>
+                            <strong class="text-muRed">แดง (#DA291C) • ขาว • ดำ • เหลืองทอง</strong>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+
+        function openHistoryModal(index) {
+            const era = historyEras[index];
+            openModal(`${era.year} : ${era.title}`, era.details);
+        }
+
+        function openPlayerModal(index) {
+            const p = playersData[index];
+            const statKeys = Object.entries(p.stats).map(([key, val]) => {
+                const labelMap = {
+                    apps: 'ลงสนาม',
+                    cleanSheets: 'คลีนชีต',
+                    saves: 'เซฟสำคัญ',
+                    goals: 'ประตู',
+                    assists: 'แอสซิสต์',
+                    tackles: 'เข้าปะทะสำเร็จ',
+                    aerialWon: 'ชนะลูกกลางอากาศ',
+                    passAcc: 'ความแม่นยำจ่ายบอล',
+                    dribbleSuccess: 'เลี้ยงผ่านสำเร็จ'
+                };
+                return `
+                    <div class="bg-muLightGray border border-slate-200 rounded-2xl p-4 text-center">
+                        <div class="font-display text-2xl font-extrabold text-muRed">${val}</div>
+                        <div class="text-xs text-slate-600 font-semibold mt-1">${labelMap[key] || key}</div>
+                    </div>
+                `;
+            }).join('');
+
+            openModal(`โปรไฟล์นักเตะ #${p.number} ${p.name}`, `
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r from-muBlack to-muDeepRed text-white border border-muYellow">
+                        <div class="w-16 h-16 rounded-2xl bg-muRed border-2 border-muYellow flex items-center justify-center font-display text-3xl font-extrabold text-muYellow">
+                            ${p.number}
+                        </div>
+                        <div>
+                            <span class="px-2.5 py-0.5 rounded-full bg-muYellow text-muBlack text-xs font-bold">${p.posLabel}</span>
+                            <h4 class="font-display text-2xl font-bold mt-1">${p.name}</h4>
+                            <p class="text-xs text-slate-200">${p.enName} • สัญชาติ${p.nationality} • อายุ ${p.age} ปี</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h5 class="font-bold text-muBlack mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-user-check text-muRed"></i> สไตล์การเล่นและบทบาทในทีม
+                        </h5>
+                        <p class="text-sm text-slate-700 leading-relaxed bg-muLightGray p-4 rounded-2xl border border-slate-200">${p.bio}</p>
+                    </div>
+
+                    <div>
+                        <h5 class="font-bold text-muBlack mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-simple text-muGold"></i> สถิติสำคัญกับสโมสร
+                        </h5>
+                        <div class="grid grid-cols-3 gap-3">
+                            ${statKeys}
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+
+        function openMatchPreviewModal(index) {
+            const m = matchesData.upcoming[index];
+            openModal(`พรีวิวก่อนเกม : ${m.home} พบ ${m.away}`, `
+                <div class="space-y-4">
+                    <div class="p-5 rounded-2xl bg-muBlack text-white text-center border-2 border-muYellow">
+                        <span class="text-xs text-muYellow font-bold uppercase tracking-widest">${m.competition}</span>
+                        <div class="font-display text-xl sm:text-2xl font-extrabold my-2">${m.home} <span class="text-muRed mx-2">VS</span> ${m.away}</div>
+                        <p class="text-xs text-slate-300">${m.date} • เวลา ${m.time} • สนาม ${m.venue}</p>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-muLightGray border border-slate-200">
+                        <h5 class="font-bold text-muBlack mb-1">ความพร้อมและไฮไลต์สำคัญ</h5>
+                        <p class="text-sm text-slate-700 leading-relaxed">${m.preview}</p>
+                    </div>
+                </div>
+            `);
+        }
+
+        function openStadiumGuideModal() {
+            openModal('ผังอัฒจันทร์ทั้ง 4 ทิศของสนาม โอลด์ แทรฟฟอร์ด', `
+                <div class="space-y-4 text-sm">
+                    <p class="text-slate-600">สนามโอลด์ แทรฟฟอร์ด ความจุ 74,310 ที่นั่ง แบ่งออกเป็น 4 อัฒจันทร์หลักรอบสนาม ดังนี้:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="p-4 rounded-2xl bg-muBlack text-white border border-muYellow">
+                            <strong class="text-muYellow block mb-1">1. Sir Alex Ferguson Stand (ทิศเหนือ)</strong>
+                            <span class="text-xs text-slate-300">อัฒจันทร์ที่ใหญ่ที่สุด 3 ชั้น จุผู้ชมได้ 26,000 คน พร้อมพิพิธภัณฑ์สโมสรและ Red Café</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-muRed text-white border border-muYellow/50">
+                            <strong class="text-muYellow block mb-1">2. Stretford End (ทิศตะวันตก)</strong>
+                            <span class="text-xs text-slate-100">อัฒจันทร์ฝั่งกองเชียร์ฮาร์ดคอร์ที่ส่งเสียงเชียร์ดังกระหึ่มที่สุดในโรงละครแห่งความฝัน</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-muLightGray border border-slate-200">
+                            <strong class="text-muBlack block mb-1">3. Sir Bobby Charlton Stand (ทิศใต้)</strong>
+                            <span class="text-xs text-slate-600">อัฒจันทร์หลักที่มีซุ้มม้านั่งสำรอง ห้องแต่งตัวนักเตะ อุโมงค์มิวนิก และบ็อกซ์วีไอพี</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-muLightGray border border-slate-200">
+                            <strong class="text-muBlack block mb-1">4. East Stand (ทิศตะวันออก)</strong>
+                            <span class="text-xs text-slate-600">เป็นที่ตั้งของ Megastore ร้านค้าอย่างเป็นทางการของสโมสรและรูปปั้นสามทหารเสือ</span>
+                        </div>
+                    </div>
+                </div>
+            `);
+        }
+
+        // -------------------- ACCORDION & FILTER EVENTS --------------------
+        function toggleTrivia(id) {
+            const content = document.getElementById(`trivia-content-${id}`);
+            const icon = document.getElementById(`trivia-icon-${id}`);
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Squad Position Filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => {
+                    b.className = 'filter-btn px-5 py-2.5 rounded-full text-sm font-semibold bg-white text-muBlack hover:bg-muBlack hover:text-muYellow border border-slate-300 transition-all';
+                });
+                btn.className = 'filter-btn active px-5 py-2.5 rounded-full text-sm font-bold bg-muRed text-white border border-muYellow shadow-md transition-all';
+                renderPlayers(btn.dataset.filter);
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        // Scroll Spy for Sticky Navbar Active Highlight
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 120;
+                if (pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Close Modal on Escape Key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // Initialize Page Content
+        window.addEventListener('DOMContentLoaded', () => {
+            renderHistoryCards();
+            renderPlayers('ALL');
+            switchMatchTab('upcoming');
+        });
+    </script>
+</body>
+</html>
